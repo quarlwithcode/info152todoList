@@ -16,7 +16,7 @@
         $task_id = $row['id'];
         $task_name = $row['task'];
     
-        echo '<li><span>'.$task_name.'</span><button id="'.$task_id.'" class="delete-button">Delete</button></li>';
+        echo '<li><span>'.$task_name.'</span><button id="'.$task_id.'" class="delete-button"><i class="fa fa-times"></i></button></li>';
     }
    
 ?>

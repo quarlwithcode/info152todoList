@@ -29,7 +29,7 @@ body {
 }
 
 .task-list li span {
-	width: 86%;
+	width: 80%;
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
@@ -40,13 +40,17 @@ body {
 	height: auto;
 	padding-top: 7px;
 	float: right;
-	vertical-align: top;
+	vertical-align: center;
 	opacity: 0.5;
 	cursor: pointer;
+    border: none;
+    background-color: #fff;
+    font-size: 1em;
 }
 
 .task-list li .delete-button:hover {
 	opacity: 0.85;
+    color: #F00;
 }
 
 .add-new-task {
@@ -71,6 +75,47 @@ box-sizing: border-box;
 
 :focus {
 	outline: 0;
+}
+
+.login-wrapper {
+	width: 88%;
+	min-height: 300px;
+	background: #fff;
+	box-shadow: 2px 2px 0px #ddd;
+	margin-top: 40px;
+	padding: 22px 6%;
+}
+
+.login-wrapper h1, #register-wrapper h1{
+    font-size: 2.5em;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.login-wrapper p, #register-wrapper p{
+    margin-bottom: 10px;
+}
+
+#loginform, #registerform{
+    width: 75%;
+    margin: 0 auto;
+}
+
+#loginform div, #register-wrapper div{
+    margin-bottom: 10px;
+}
+
+#loginform #username, #loginform #password, #registerform #username, #registerform #password, #registerform #email{
+    float: right;
+}
+
+#register-wrapper{
+	width: 88%;
+	min-height: 300px;
+	background: #fff;
+	box-shadow: 2px 2px 0px #ddd;
+	margin-top: 40px;
+	padding: 22px 6%;
 }
 
 @media all and (max-width: 425px) {
