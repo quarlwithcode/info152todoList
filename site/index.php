@@ -11,24 +11,57 @@
 <body>
     <main class="wrap">
        <?php         
-       if(!empty($_POST['username']) && !empty($_POST['password']))
+        if($_SESSION['LoggedIn'] == 5 && !empty($_SESSION['Username']))
+        {
+        ?>
+ 
+         <div class="task-list-wrapper"></div>
+                <div class="task-list">
+                    <ul>
+                        <?php require("connect.php"); 
+
+                        $query = "SELECT * FROM tasks WHERE userID = ".$_SESSION['UserID']." ORDER BY date ASC, time ASC";
+                        $numrows = $db->exec($query);
+
+                        if($numrows>0){
+                            foreach($numrows as $single){
+                                $task_id = $single['id'];
+                                $task_name = $single['task'];
+                                echo '<li><span>'.$task_name.'</span><button id="'.$task_id.'" class="delete-button"><i class="fa fa-times"></i></button></li>';
+                            }
+                        }
+                        ?>
+                    </ul>
+                    </div>
+                <form class="add-new-task" autocomplete="off" action="add-task.php" method="post">
+                    <input type="text" name="new-task" placeholder="Add a new item..." />
+                </form>
+                <form class="logout-form" autocomplete="off" action="logout.php" method="post">
+                    <input type="submit" name="logout" value="Logout" />
+                </form>
+            </div>
+      
+     <?php
+       }
+        elseif(!empty($_POST['username']) && !empty($_POST['password']))
         {
             $username = $_POST['username'];
             $password = md5($_POST['password']);
-
+            $userID = "";
             $checkloginQuery = "SELECT * FROM users WHERE Username = '".$username."' AND Password = '".$password."'";
             
-            $numrows = $db->query($checkloginQuery);
+            $numrows = $db->query($checkloginQuery)->fetchAll();
 
-            if($numrows>0)
+            if(count($numrows) == 1)
             {
-                $row = $numrows->fetch();
+                $row = $db->query($checkloginQuery)->fetch();
                 $email = $row['EmailAddress'];
-
+                $userID = $row['UserID'];
+                
                 $_SESSION['Username'] = $username;
                 $_SESSION['EmailAddress'] = $email;
+                $_SESSION['UserID'] = $userID;
                 $_SESSION['LoggedIn'] = 1;
-              
         ?>
                 
             <div class="task-list-wrapper"></div>
@@ -36,7 +69,7 @@
                     <ul>
                         <?php require("connect.php"); 
 
-                        $query = "SELECT * FROM tasks ORDER BY date ASC, time ASC";
+                        $query = "SELECT * FROM tasks WHERE userID = ".$_SESSION['UserID']." ORDER BY date ASC, time ASC";
                         $numrows = $db->query($query);
 
                         if($numrows>0){
@@ -57,10 +90,10 @@
                 </form>
             </div>
         <?php 
-                
             }
             else
             {
+                //echo count($numrows);
                 echo "<h1>Error</h1>";
                 echo "<p>Sorry, your account could not be found. Please <a href=\"index.php\">click here to try again</a>.</p>";
             }

@@ -5,7 +5,7 @@
 
     require("connect.php");
 
-    $query = "INSERT INTO tasks VALUES ('', '$task', '$date', '$time')";
+    $query = "INSERT INTO tasks VALUES ('', '".$_SESSION['UserID']."','$task', '$date', '$time')";
     $db -> exec($query);
 
     $query = "SELECT * FROM tasks WHERE task='$task' and date='$date' and time='$time'";

@@ -15,12 +15,9 @@
             $password = md5($_POST['password']);
             $email = $_POST['email'];
 
-            $checkusernameQuery = "SELECT * FROM users WHERE Username = '.$username.'";
-            $rows = $db->query($checkusernameQuery);
-            $numrows = 0;
-            foreach($rows as $row){
-                $numrows++;
-            }
+            $checkusernameQuery = "SELECT * FROM users WHERE Username = '".$username."'";
+            $rows = $db->query($checkusernameQuery)->fetchAll();
+            $numrows = count($rows);
 
              if($numrows > 0)
              {
@@ -33,6 +30,7 @@
                  
                 if($db->query($registerQuery))
                 {
+                    echo $numrows;
                     echo "<h1>Success</h1>";
                     echo "<p>Your account was successfully created. Please <a href=\"index.php\">click here to login</a>.</p>";
                 }
